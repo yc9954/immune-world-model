@@ -1,0 +1,14 @@
+experiment: research
+
+# Research-only stack. Achieves higher ceiling but blocked for commercial deployment.
+embeddings:
+  cell: state_se       # Arc Institute, non-commercial research license
+  gene: geneformer     # Broad, non-commercial
+  drug: molformer      # MIT
+  cyto: immune_dict    # conditioned on Immune Dictionary atlas (CC-BY)
+
+pretrain:
+  corpus: tahoe_100m   # CC-BY-NC
+  exclude_non_commercial: false
+
+inherit: toy

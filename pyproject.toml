@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "iwm"
+version = "0.1.0"
+description = "Immune World Model — action-conditioned multi-cell latent dynamics"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "numpy>=1.26",
+    "torch>=2.2",
+    "pytorch-lightning>=2.2",
+    "pydantic>=2.6",
+    "pyyaml>=6.0",
+    "scikit-learn>=1.4",
+    "scipy>=1.12",
+    "pandas>=2.2",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+real = ["scanpy>=1.10", "anndata>=0.10", "scvi-tools>=1.1"]
+dev  = ["pytest>=8", "ruff>=0.4"]
+
+[tool.setuptools.packages.find]
+include = ["iwm*"]
+
+[tool.ruff]
+line-length = 100

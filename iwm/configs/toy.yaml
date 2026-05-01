@@ -1,0 +1,63 @@
+experiment: toy
+
+seed: 0
+
+data:
+  n_cells: 2048
+  n_cell_types: 5
+  n_genes_pert: 20
+  gene_feature_dim: 8             # shared motif space; enables OOD-gene
+  n_drugs: 10
+  n_cytokines: 8
+  latent_dim: 32
+  trajectory_len: 10
+  dt: 1.0
+  neighbor_k: 8
+  noise_std: 0.05
+  coupling_strength: 0.6
+  nonlinearity: tanh
+  nonlinearity_scale: 3.0
+
+splits:
+  iid_val_frac: 0.1
+  iid_test_frac: 0.1
+  ood_gene_frac: 0.25
+  ood_temporal_split_at: 6
+  ood_multicell_frac: 0.25
+
+model:
+  latent_dim: 32
+  gene_embed_dim: 16
+  drug_embed_dim: 16
+  cyto_embed_dim: 16
+  env_embed_dim: 32
+  n_layers: 4
+  n_heads: 4
+  ffn_dim: 128
+  dropout: 0.1
+
+training:
+  batch_size: 256
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+  max_epochs: 40
+  rollout_steps: 3
+  grad_clip: 1.0
+  accelerator: auto        # auto / mps / cuda / cpu
+  precision: 32            # MPS works best with fp32; bf16 supported on M3+
+  num_workers: 4           # DataLoader workers; 0 keeps everything in main proc
+  persistent_workers: true
+  threads: null            # null -> use os.cpu_count(); int overrides
+  loss_weights:
+    latent_mse: 1.0
+    latent_nll: 0.3
+    vicreg:    0.1
+    cyto_mse:  0.3
+    fate_ce:   0.0    # disabled in synthetic
+    jepa:      0.2
+    rollout:   0.5
+    flow:      0.0
+
+logging:
+  out_dir: results/toy_run
+  checkpoint_every: 10

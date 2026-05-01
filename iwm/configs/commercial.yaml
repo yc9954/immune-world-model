@@ -1,0 +1,14 @@
+experiment: commercial
+
+# License-clean stack. Swap any non-commercial dependency into this file at your own risk.
+embeddings:
+  cell: scvi           # BSD-3
+  gene: learned        # trained from scratch on scBaseCount-like corpus
+  drug: molformer      # MIT
+  cyto: learned
+
+pretrain:
+  corpus: cellxgene_census   # CC-BY 4.0
+  exclude_non_commercial: true
+
+inherit: toy
